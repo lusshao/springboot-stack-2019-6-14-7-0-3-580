@@ -9,8 +9,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
-public class EmployeeRepository implements IEmployeeRepository {
-
+public class EmployeeRepository2 implements IEmployeeRepository {
     private static List<Employee> employeeList;
     static{
         employeeList = new ArrayList<>();
@@ -23,7 +22,7 @@ public class EmployeeRepository implements IEmployeeRepository {
 
     public static Employee createEmployee(String id){
         Employee employee = new Employee();
-        employee.setAge(18);
+        employee.setAge(19);
         employee.setGender("Female");
         employee.setName("la");
         employee.setId(id);

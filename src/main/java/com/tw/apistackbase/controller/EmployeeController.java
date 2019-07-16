@@ -1,7 +1,11 @@
 package com.tw.apistackbase.controller;
 
 import com.tw.apistackbase.Repository.EmployeeRepository;
+import com.tw.apistackbase.Repository.IEmployeeRepository;
 import com.tw.apistackbase.model.Employee;
+import com.tw.apistackbase.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,37 +16,39 @@ import java.util.logging.Logger;
 public class EmployeeController {
 
     private final Logger log = Logger.getLogger(this.getClass().getName());
-    EmployeeRepository repository = new EmployeeRepository();
+
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping("/employees")
     public List<Employee> list(){
-        return repository.getEmployeeList();
+        return employeeService.list();
     }
 
     @GetMapping("/employees/{id}")
     public Employee getId(@PathVariable String id){
-        return repository.getEmployeeById(id);
+        return employeeService.getId(id);
     }
 
     @PostMapping("/employees")
     public Employee getNewEmployee(@RequestBody Employee employee){
-        return repository.addNewEmployee(employee);
+        return employeeService.getNewEmployee(employee);
     }
 
     @DeleteMapping("/employees/{employeeId}")
     public Employee deleteEmployee(@PathVariable String employeeId){
-        return repository.deleteEmployee(employeeId);
+        return employeeService.deleteEmployee(employeeId);
     }
 
     @PutMapping("/employees/{employeeId}")
     public Employee updateEmployee(@RequestBody Employee employee,@PathVariable String employeeId){
         employee.setId(employeeId);
-        return repository.updateEmployee(employee);
+        return employeeService.updateEmployee(employee);
     }
 
     @GetMapping("/employees/age/{findAge}")
     public List<Employee> findEmployeeSmallerThanAge(@PathVariable int findAge){
-        return repository.outEmployeeSmallerThanAge(findAge);
+        return employeeService.findEmployeeSmallerThanAge(findAge);
     }
 
 
